@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Employee Registration</title>
+
+    <link href=
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+    <link href=
+    "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+
+            height:100vh;
+
+            overflow:hidden;
+
+            background:
+            linear-gradient(
+            135deg,
+            #141e30,
+            #243b55);
+
+            position:relative;
+        }
+
+        /* Background Circles */
+
+        .circle{
+
+            position:absolute;
+
+            border-radius:50%;
+
+            background:
+            rgba(255,255,255,0.08);
+
+            animation:float 8s infinite ease-in-out;
+        }
+
+        .circle1{
+
+            width:350px;
+            height:350px;
+
+            top:-100px;
+            left:-100px;
+        }
+
+        .circle2{
+
+            width:250px;
+            height:250px;
+
+            bottom:-80px;
+            right:-80px;
+
+            animation-delay:2s;
+        }
+
+        .circle3{
+
+            width:180px;
+            height:180px;
+
+            top:40%;
+            left:15%;
+
+            animation-delay:4s;
+        }
+
+        @keyframes float{
+
+            0%{
+                transform:translateY(0px);
+            }
+
+            50%{
+                transform:translateY(-20px);
+            }
+
+            100%{
+                transform:translateY(0px);
+            }
+        }
+
+        /* Layout */
+
+        .main-container{
+
+            display:flex;
+
+            height:100vh;
+
+            position:relative;
+
+            z-index:2;
+        }
+
+        /* Left Side */
+
+        .left-panel{
+
+            width:50%;
+
+            display:flex;
+
+            flex-direction:column;
+
+            justify-content:center;
+
+            padding-left:90px;
+
+            color:white;
+        }
+
+        .portal-title{
+
+            font-size:60px;
+
+            font-weight:700;
+
+            line-height:1.2;
+        }
+
+        .portal-subtitle{
+
+            margin-top:25px;
+
+            width:75%;
+
+            font-size:20px;
+
+            color:#dcdcdc;
+        }
+
+        .portal-badge{
+
+            margin-top:40px;
+
+            display:inline-block;
+
+            padding:15px 30px;
+
+            border-radius:40px;
+
+            background:
+            rgba(255,255,255,0.12);
+
+            width:max-content;
+
+            backdrop-filter:blur(10px);
+        }
+
+        /* Right Side */
+
+        .right-panel{
+
+            width:50%;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+        }
+
+        .register-box{
+
+            width:520px;
+
+            padding:45px;
+
+            border-radius:30px;
+
+            background:
+            rgba(255,255,255,0.1);
+
+            backdrop-filter:blur(18px);
+
+            border:
+            1px solid rgba(255,255,255,0.15);
+
+            box-shadow:
+            0 8px 40px rgba(0,0,0,0.3);
+
+            color:white;
+        }
+
+        .register-title{
+
+            text-align:center;
+
+            font-size:42px;
+
+            font-weight:700;
+
+            margin-bottom:10px;
+        }
+
+        .register-subtitle{
+
+            text-align:center;
+
+            color:#e5e5e5;
+
+            margin-bottom:35px;
+        }
+
+        .form-control{
+
+            height:55px;
+
+            border:none;
+
+            border-radius:15px;
+
+            margin-bottom:20px;
+
+            padding-left:18px;
+
+            font-size:15px;
+        }
+
+        .form-control:focus{
+
+            box-shadow:none;
+
+            border:2px solid #ffffff;
+        }
+
+        .btn-register{
+
+            width:100%;
+
+            height:58px;
+
+            border:none;
+
+            border-radius:15px;
+
+            font-size:18px;
+
+            font-weight:600;
+
+            background:
+            linear-gradient(
+            to right,
+            #00c6ff,
+            #0072ff);
+
+            color:white;
+
+            transition:0.3s;
+        }
+
+        .btn-register:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+            0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .signin-link{
+
+            text-align:center;
+
+            margin-top:25px;
+        }
+
+        .signin-link a{
+
+            color:white;
+
+            text-decoration:none;
+
+            font-weight:500;
+        }
+
+        .signin-link a:hover{
+
+            text-decoration:underline;
+        }
+
+        @media(max-width:992px){
+
+            .left-panel{
+                display:none;
+            }
+
+            .right-panel{
+                width:100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- Background -->
+
+<div class="circle circle1"></div>
+<div class="circle circle2"></div>
+<div class="circle circle3"></div>
+
+
+<div class="main-container">
+
+    <!-- Left Side -->
+
+    <div class="left-panel">
+
+        <div class="portal-title">
+
+            Employee Portal<br>
+
+            Registration
+
+        </div>
+
+        <div class="portal-subtitle">
+
+            Register your employee account securely
+            and access dashboard, profile management,
+            leave requests and more.
+
+        </div>
+
+        <div class="portal-badge">
+
+            Smart Employee Management System
+
+        </div>
+
+    </div>
+
+
+    <!-- Right Side -->
+
+    <div class="right-panel">
+
+        <div class="register-box">
+
+            <div class="register-title">
+
+                Employee Registration
+
+            </div>
+
+            <div class="register-subtitle">
+
+                Create your employee account
+
+            </div>
+
+
+            <form action="/employee/saveRegister"
+                  method="post">
+
+                <!-- First Name + Last Name -->
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <input type="text"
+                               name="firstName"
+                               class="form-control"
+                               placeholder="First Name"
+                               required>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <input type="text"
+                               name="lastName"
+                               class="form-control"
+                               placeholder="Last Name"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <input type="email"
+                       name="email"
+                       class="form-control"
+                       placeholder="Email Address"
+                       required>
+
+
+                <!-- Username -->
+
+                <input type="text"
+                       name="username"
+                       class="form-control"
+                       placeholder="Create Username"
+                       required>
+
+
+                <!-- Password -->
+
+                <input type="password"
+                       name="password"
+                       class="form-control"
+                       placeholder="Create Password"
+                       required>
+
+
+                <button type="submit"
+                        class="btn-register">
+
+                    Register Account
+
+                </button>
+
+            </form>
+
+
+            <div class="signin-link">
+
+                <a href="/employee/login">
+
+                    Already have an account?
+                    Sign In
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

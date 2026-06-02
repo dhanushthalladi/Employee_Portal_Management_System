@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at top left,#182848,#040814 45%),
+    linear-gradient(135deg,#050816,#091322);
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+    color:white;
+}
+
+/* glowing background */
+
+.bg-circle{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(100px);
+    z-index:-1;
+    opacity:0.35;
+}
+
+.circle1{
+    width:300px;
+    height:300px;
+    background:#00c6ff;
+    top:-80px;
+    left:-80px;
+}
+
+.circle2{
+    width:350px;
+    height:350px;
+    background:#7f5af0;
+    bottom:-120px;
+    right:-100px;
+}
+
+.circle3{
+    width:250px;
+    height:250px;
+    background:#00ffae;
+    top:40%;
+    left:45%;
+}
+
+/* HEADER */
+
+.dashboard-header{
+    margin-top:30px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(20px);
+    border-radius:30px;
+    padding:35px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    position:relative;
+    overflow:hidden;
+}
+
+.dashboard-header::before{
+    content:'';
+    position:absolute;
+    width:250px;
+    height:250px;
+    background:rgba(255,255,255,0.06);
+    border-radius:50%;
+    top:-100px;
+    right:-70px;
+}
+
+.dashboard-header h1{
+    font-size:55px;
+    font-weight:800;
+    letter-spacing:1px;
+    background:linear-gradient(to right,#6ea8fe,#9b5cff,#00f7ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.dashboard-header p{
+    color:#cbd5e1;
+    font-size:18px;
+    margin-top:10px;
+}
+
+/* STATS */
+
+.stats-section{
+    margin-top:35px;
+}
+
+.stats-card{
+    background:rgba(255,255,255,0.08);
+    border-radius:25px;
+    padding:25px;
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    transition:0.4s;
+    position:relative;
+    overflow:hidden;
+}
+
+.stats-card:hover{
+    transform:translateY(-8px) scale(1.02);
+}
+
+.stats-card i{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.stats-card h2{
+    font-size:34px;
+    font-weight:800;
+}
+
+.stats-card p{
+    color:#d1d5db;
+    margin:0;
+}
+
+/* ACTION CARDS */
+
+.section-title{
+    margin-top:60px;
+    margin-bottom:30px;
+    font-size:34px;
+    font-weight:700;
+}
+
+.dashboard-card{
+    position:relative;
+    overflow:hidden;
+    background:rgba(255,255,255,0.08);
+    border-radius:30px;
+    padding:35px;
+    height:100%;
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(20px);
+    transition:0.5s;
+    box-shadow:0 15px 40px rgba(0,0,0,0.35);
+}
+
+.dashboard-card::before{
+    content:'';
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.06);
+    top:-60px;
+    right:-60px;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+
+.icon-box{
+    width:90px;
+    height:90px;
+    border-radius:25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:25px;
+    font-size:35px;
+    color:white;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.card-title{
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.card-text{
+    color:#d1d5db;
+    font-size:15px;
+    line-height:1.7;
+    margin-bottom:30px;
+}
+
+.open-btn{
+    display:inline-block;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:15px;
+    color:white;
+    font-weight:700;
+    text-decoration:none;
+    text-align:center;
+    transition:0.3s;
+    letter-spacing:0.5px;
+}
+
+.open-btn:hover{
+    transform:scale(1.03);
+    color:white;
+}
+
+/* colors */
+
+.blue{
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+}
+
+.green{
+    background:linear-gradient(135deg,#00ff87,#11998e);
+}
+
+.orange{
+    background:linear-gradient(135deg,#ffb347,#ffcc33);
+}
+
+.red{
+    background:linear-gradient(135deg,#ff416c,#ff4b2b);
+}
+
+.purple{
+    background:linear-gradient(135deg,#8e2de2,#4a00e0);
+}
+
+.cyan{
+    background:linear-gradient(135deg,#00f2fe,#4facfe);
+}
+
+/* footer */
+
+.footer{
+    margin-top:70px;
+    padding:25px;
+    text-align:center;
+    color:#cbd5e1;
+}
+
+.logout-btn{
+    margin-top:15px;
+    padding:12px 35px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(135deg,#ff0844,#ffb199);
+    color:white;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-block;
+    transition:0.3s;
+}
+
+.logout-btn:hover{
+    transform:scale(1.05);
+    color:white;
+}
+
+/* responsive */
+
+@media(max-width:768px){
+
+    .dashboard-header h1{
+        font-size:38px;
+    }
+
+    .section-title{
+        font-size:26px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg-circle circle1"></div>
+<div class="bg-circle circle2"></div>
+<div class="bg-circle circle3"></div>
+
+<div class="container pb-5">
+
+    <!-- HEADER -->
+
+    <div class="dashboard-header text-center">
+
+        <h1>
+            <i class="fa-solid fa-user-shield"></i>
+            Admin Dashboard
+        </h1>
+
+        <p>
+            Smart Employee Portal Management System
+        </p>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="row stats-section g-4">
+
+        <div class="col-md-3">
+
+            <div class="stats-card text-center">
+
+                <i class="fa-solid fa-users text-info"></i>
+
+                <h2>120</h2>
+
+                <p>Total Employees</p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="stats-card text-center">
+
+                <i class="fa-solid fa-user-check text-success"></i>
+
+                <h2>98</h2>
+
+                <p>Approved</p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="stats-card text-center">
+
+                <i class="fa-solid fa-clock text-warning"></i>
+
+                <h2>15</h2>
+
+                <p>Pending Requests</p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="stats-card text-center">
+
+                <i class="fa-solid fa-calendar-check text-danger"></i>
+
+                <h2>8</h2>
+
+                <p>Leave Requests</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+
+    <h2 class="section-title text-center">
+        Portal Management
+    </h2>
+
+    <div class="row g-4">
+
+        <!-- ADD -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="icon-box blue">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+
+                <h3 class="card-title">
+                    Add Employee
+                </h3>
+
+                <p class="card-text">
+                    Register new employees into the organization
+                    with complete profile and department details.
+                </p>
+
+                <a href="/admin/addEmployee"
+                   class="open-btn blue">
+
+                    Open Module
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- VIEW -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="icon-box green">
+                    <i class="fa-solid fa-users-viewfinder"></i>
+                </div>
+
+                <h3 class="card-title">
+                    View Employees
+                </h3>
+
+                <p class="card-text">
+                    Search, filter and manage employee records
+                    with professional profile cards.
+                </p>
+
+                <a href="/admin/viewEmployees"
+                   class="open-btn green">
+
+                    Open Module
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- UPDATE -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="icon-box orange">
+                    <i class="fa-solid fa-user-pen"></i>
+                </div>
+
+                <h3 class="card-title">
+                    Update Employee
+                </h3>
+
+                <p class="card-text">
+                    Modify employee details, department,
+                    salary and profile information instantly.
+                </p>
+
+                <a href="/admin/viewEmployees"
+                   class="open-btn orange">
+
+                    Open Module
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- APPROVAL -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="icon-box red">
+                    <i class="fa-solid fa-user-check"></i>
+                </div>
+
+                <h3 class="card-title">
+                    Employee Approval
+                </h3>
+
+                <p class="card-text">
+                    Approve or reject employee registrations
+                    before allowing system login access.
+                </p>
+
+                <a href="/admin/approvalEmployees"
+                   class="open-btn red">
+
+                    Open Module
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- LEAVES -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="icon-box cyan">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+
+                <h3 class="card-title">
+                    Leave Requests
+                </h3>
+
+                <p class="card-text">
+                    Monitor approved, rejected and pending leave
+                    requests with complete history tracking.
+                </p>
+
+                <a href="/admin/leaves"
+                   class="open-btn cyan">
+
+                    Open Module
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ANNOUNCEMENTS -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="icon-box purple">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </div>
+
+                <h3 class="card-title">
+                    Announcements
+                </h3>
+
+                <p class="card-text">
+                    Publish meetings, holidays, company updates
+                    and important organization announcements.
+                </p>
+
+                <a href="/admin/announcements"
+                   class="open-btn purple">
+
+                    Open Module
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        <h5>
+            Employee Portal Management System
+        </h5>
+
+        <p>
+            Designed for modern enterprise administration
+        </p>
+
+        <a href="/admin/login"
+           class="logout-btn">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

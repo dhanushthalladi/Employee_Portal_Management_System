@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Employee Dashboard</title>
+
+    <link href=
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+    <link href=
+    "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+	<style>
+
+	*{
+	    font-family:'Poppins',sans-serif;
+	}
+
+	body{
+
+	    background:
+	    linear-gradient(
+	    135deg,
+	    #0f2027,
+	    #203a43,
+	    #2c5364);
+
+	    min-height:100vh;
+
+	    padding:40px;
+
+	    overflow-x:hidden;
+	}
+
+
+	/* Main Dashboard */
+
+	.dashboard-container{
+
+	    background:
+	    rgba(255,255,255,0.08);
+
+	    backdrop-filter:blur(18px);
+
+	    border-radius:35px;
+
+	    padding:50px;
+
+	    box-shadow:
+	    0 8px 40px rgba(0,0,0,0.4);
+
+	    border:
+	    1px solid rgba(255,255,255,0.1);
+
+	    color:white;
+
+	    position:relative;
+
+	    overflow:hidden;
+	}
+
+
+	/* Decorative Glow */
+
+	.dashboard-container::before{
+
+	    content:"";
+
+	    position:absolute;
+
+	    width:350px;
+	    height:350px;
+
+	    background:
+	    radial-gradient(
+	    circle,
+	    rgba(255,0,150,0.3),
+	    transparent);
+
+	    top:-100px;
+	    right:-100px;
+
+	    border-radius:50%;
+	}
+
+	.dashboard-container::after{
+
+	    content:"";
+
+	    position:absolute;
+
+	    width:300px;
+	    height:300px;
+
+	    background:
+	    radial-gradient(
+	    circle,
+	    rgba(0,255,255,0.25),
+	    transparent);
+
+	    bottom:-100px;
+	    left:-100px;
+
+	    border-radius:50%;
+	}
+
+
+	/* Profile */
+
+	.profile-section{
+
+	    text-align:center;
+
+	    margin-bottom:60px;
+
+	    position:relative;
+	    z-index:2;
+	}
+
+	.profile-img{
+
+	    width:170px;
+	    height:170px;
+
+	    border-radius:50%;
+
+	    object-fit:cover;
+
+	    border:5px solid rgba(255,255,255,0.8);
+
+	    box-shadow:
+	    0 0 30px rgba(0,255,255,0.6);
+
+	    transition:0.4s;
+	}
+
+	.profile-img:hover{
+
+	    transform:scale(1.05);
+	}
+
+	.welcome-text{
+
+	    font-size:52px;
+
+	    font-weight:700;
+
+	    margin-top:25px;
+
+	    background:
+	    linear-gradient(
+	    to right,
+	    #00f5ff,
+	    #ff00c8);
+
+	    -webkit-background-clip:text;
+
+	    -webkit-text-fill-color:transparent;
+	}
+
+	.employee-name{
+
+	    font-size:32px;
+
+	    font-weight:600;
+
+	    color:#ffffff;
+
+	    margin-top:10px;
+	}
+
+	.employee-role{
+
+	    color:#d1d1d1;
+
+	    font-size:18px;
+
+	    margin-top:8px;
+	}
+
+
+	/* Info Cards */
+
+	.info-card{
+
+	    background:
+	    rgba(255,255,255,0.08);
+
+	    border-radius:22px;
+
+	    padding:25px;
+
+	    margin-bottom:25px;
+
+	    transition:0.4s;
+
+	    border:
+	    1px solid rgba(255,255,255,0.1);
+
+	    position:relative;
+
+	    overflow:hidden;
+	}
+
+	.info-card::before{
+
+	    content:"";
+
+	    position:absolute;
+
+	    width:120px;
+	    height:120px;
+
+	    background:
+	    radial-gradient(
+	    circle,
+	    rgba(255,255,255,0.12),
+	    transparent);
+
+	    top:-40px;
+	    right:-40px;
+	}
+
+	.info-card:hover{
+
+	    transform:
+	    translateY(-8px)
+	    scale(1.02);
+
+	    background:
+	    rgba(255,255,255,0.15);
+
+	    box-shadow:
+	    0 10px 30px rgba(0,0,0,0.3);
+	}
+
+	.info-title{
+
+	    font-size:15px;
+
+	    font-weight:600;
+
+	    color:#00f5ff;
+
+	    margin-bottom:10px;
+
+	    letter-spacing:1px;
+	}
+
+	.info-value{
+
+	    font-size:20px;
+
+	    font-weight:500;
+
+	    color:white;
+	}
+
+
+	/* Buttons */
+
+	.btn-custom{
+
+	    padding:15px 30px;
+
+	    border:none;
+
+	    border-radius:16px;
+
+	    font-weight:600;
+
+	    margin:10px;
+
+	    transition:0.4s;
+
+	    color:white;
+
+	    letter-spacing:0.5px;
+	}
+
+	.btn-custom:hover{
+
+	    transform:
+	    translateY(-5px)
+	    scale(1.05);
+
+	    box-shadow:
+	    0 10px 25px rgba(0,0,0,0.35);
+	}
+
+	.btn-profile{
+
+	    background:
+	    linear-gradient(
+	    to right,
+	    #00c6ff,
+	    #0072ff);
+	}
+
+	.btn-password{
+
+	    background:
+	    linear-gradient(
+	    to right,
+	    #f7971e,
+	    #ffd200);
+
+	    color:black;
+	}
+
+	.btn-leave{
+
+	    background:
+	    linear-gradient(
+	    to right,
+	    #00b09b,
+	    #96c93d);
+	}
+
+	.btn-logout{
+
+	    background:
+	    linear-gradient(
+	    to right,
+	    #ff416c,
+	    #ff4b2b);
+	}
+
+
+	/* Responsive */
+
+	@media(max-width:768px){
+
+	    .welcome-text{
+
+	        font-size:36px;
+	    }
+
+	    .employee-name{
+
+	        font-size:24px;
+	    }
+
+	    .dashboard-container{
+
+	        padding:30px;
+	    }
+	}
+
+	</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="dashboard-container">
+
+    <!-- Profile Section -->
+
+    <div class="profile-section">
+
+        <img th:src="@{'/uploads/' + ${employee.photo}}"
+             class="profile-img"
+             onerror="this.src='https://via.placeholder.com/150'">
+
+
+        <div class="welcome-text">
+
+            Welcome Employee
+
+        </div>
+
+
+        <div class="employee-name">
+
+            <span th:text="${employee.firstName}"></span>
+
+            <span th:text="${employee.lastName}"></span>
+
+        </div>
+
+
+        <div class="employee-role">
+
+            <span th:text="${employee.designation}"></span>
+
+            •
+
+            <span th:text="${employee.department}"></span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Info Cards -->
+
+    <div class="row">
+
+
+        <!-- LEFT -->
+
+        <div class="col-md-6">
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Employee ID
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.employeeId}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Email
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.email}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Phone Number
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.phoneNumber}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Address
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.address}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    City
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.city}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    State
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.state}">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RIGHT -->
+
+        <div class="col-md-6">
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Date Of Birth
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.dateOfBirth}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Gender
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.gender}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Joining Date
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.joiningDate}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Manager Name
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.managerName}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Employment Type
+
+                </div>
+
+                <div class="info-value"
+                     th:text="${employee.employmentType}">
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-title">
+
+                    Salary
+
+                </div>
+
+                <div class="info-value">
+
+                    ₹ <span th:text="${employee.salary}"></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Buttons -->
+
+    <div class="text-center mt-5">
+
+        <a th:href=
+        "@{/employee/completeProfile/{id}(id=${employee.employeeId})}"
+
+           class="btn btn-custom btn-profile">
+
+            Complete Profile
+
+        </a>
+
+
+        <a th:href=
+        "@{/employee/changePassword/{id}(id=${employee.employeeId})}"
+
+           class="btn btn-custom btn-password">
+
+            Change Password
+
+        </a>
+
+
+        <a th:href=
+        "@{/employee/applyLeave/{id}(id=${employee.employeeId})}"
+
+           class="btn btn-custom btn-leave">
+
+            Apply Leave
+
+        </a>
+
+
+        <a href="/employee/login"
+           class="btn btn-custom btn-logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Admin Login</title>
+
+    <link href=
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+    <link href=
+    "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href=
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+		
+		/* LEFT PANEL */
+
+		.left-panel{
+
+		    height:100%;
+
+		    display:flex;
+
+		    align-items:center;
+
+		    padding:80px;
+
+		    color:white;
+		}
+
+		.portal-title{
+
+		    font-size:70px;
+
+		    font-weight:800;
+
+		    line-height:1.1;
+
+		    margin-bottom:30px;
+		}
+
+		.portal-subtitle{
+
+		    font-size:22px;
+
+		    color:#cbd5e1;
+
+		    margin-bottom:45px;
+
+		    max-width:700px;
+		}
+
+		/* FEATURES */
+
+		.features-grid{
+
+		    display:grid;
+
+		    grid-template-columns:
+		    repeat(2,1fr);
+
+		    gap:22px;
+		}
+
+		.feature-card{
+
+		    background:
+		    rgba(255,255,255,0.08);
+
+		    backdrop-filter:blur(10px);
+
+		    border:
+		    1px solid rgba(255,255,255,0.12);
+
+		    padding:28px;
+
+		    border-radius:22px;
+
+		    display:flex;
+
+		    align-items:center;
+
+		    gap:18px;
+
+		    transition:0.3s;
+		}
+
+		.feature-card:hover{
+
+		    transform:translateY(-5px);
+
+		    background:
+		    rgba(255,255,255,0.12);
+		}
+
+		.feature-card i{
+
+		    font-size:28px;
+
+		    color:#38bdf8;
+		}
+
+		.feature-card span{
+
+		    font-size:18px;
+
+		    font-weight:600;
+		}
+
+		/* EXTRA CIRCLE */
+
+		.circle3{
+
+		    width:250px;
+		    height:250px;
+
+		    background:#8b5cf6;
+
+		    top:40%;
+		    left:35%;
+		}
+
+		/* BIGGER LOGIN CARD */
+
+		.login-card{
+
+		    width:460px;
+
+		    padding:50px;
+
+		    border-radius:28px;
+
+		    background:
+		    rgba(255,255,255,0.12);
+
+		    backdrop-filter:blur(18px);
+
+		    border:
+		    1px solid rgba(255,255,255,0.15);
+
+		    box-shadow:
+		    0 20px 60px rgba(0,0,0,0.35);
+
+		    position:relative;
+
+		    z-index:10;
+		}
+
+		/* MOBILE */
+
+		@media(max-width:992px){
+
+		    .login-card{
+
+		        width:90%;
+		    }
+		}
+
+        body{
+
+            height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            overflow:hidden;
+
+            background:
+            linear-gradient(
+            135deg,
+            #0f172a,
+            #1e293b,
+            #2563eb);
+        }
+
+        /* Background Circles */
+
+        .circle{
+
+            position:absolute;
+
+            border-radius:50%;
+
+            filter:blur(80px);
+
+            opacity:0.3;
+        }
+
+        .circle1{
+
+            width:350px;
+            height:350px;
+
+            background:#3b82f6;
+
+            top:-100px;
+            left:-100px;
+        }
+
+        .circle2{
+
+            width:300px;
+            height:300px;
+
+            background:#ec4899;
+
+            bottom:-80px;
+            right:-80px;
+        }
+
+        /* Login Card */
+
+        .login-card{
+
+            width:450px;
+
+            padding:45px;
+
+            border-radius:25px;
+
+            background:
+            rgba(255,255,255,0.12);
+
+            backdrop-filter:blur(15px);
+
+            border:
+            1px solid rgba(255,255,255,0.15);
+
+            box-shadow:
+            0 15px 40px rgba(0,0,0,0.35);
+
+            position:relative;
+
+            z-index:10;
+        }
+
+        .admin-icon{
+
+            width:90px;
+            height:90px;
+
+            margin:auto;
+
+            border-radius:50%;
+
+            background:
+            linear-gradient(
+            to right,
+            #3b82f6,
+            #06b6d4);
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            font-size:38px;
+
+            color:white;
+
+            margin-bottom:25px;
+        }
+
+        h1{
+
+            text-align:center;
+
+            color:white;
+
+            font-weight:700;
+
+            margin-bottom:10px;
+        }
+
+        .subtitle{
+
+            text-align:center;
+
+            color:#dbeafe;
+
+            margin-bottom:35px;
+
+            font-size:15px;
+        }
+
+        .form-label{
+
+            color:white;
+
+            font-weight:500;
+        }
+
+        .form-control{
+
+            height:55px;
+
+            border:none;
+
+            border-radius:14px;
+
+            background:
+            rgba(255,255,255,0.9);
+
+            padding-left:15px;
+
+            font-size:16px;
+        }
+
+        .form-control:focus{
+
+            box-shadow:
+            0 0 10px rgba(59,130,246,0.7);
+
+            border:none;
+        }
+
+        .input-group{
+
+            position:relative;
+        }
+
+        .input-icon{
+
+            position:absolute;
+
+            right:18px;
+            top:18px;
+
+            color:#64748b;
+
+            z-index:5;
+        }
+
+        .login-btn{
+
+            width:100%;
+
+            height:55px;
+
+            border:none;
+
+            border-radius:14px;
+
+            background:
+            linear-gradient(
+            to right,
+            #3b82f6,
+            #06b6d4);
+
+            color:white;
+
+            font-size:18px;
+
+            font-weight:600;
+
+            transition:0.3s;
+
+            margin-top:10px;
+        }
+
+        .login-btn:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+            0 10px 20px rgba(59,130,246,0.4);
+        }
+
+        .error-message{
+
+            background:
+            rgba(239,68,68,0.15);
+
+            color:#fecaca;
+
+            padding:12px;
+
+            border-radius:10px;
+
+            text-align:center;
+
+            margin-bottom:20px;
+
+            border:
+            1px solid rgba(239,68,68,0.3);
+        }
+
+        .footer-text{
+
+            text-align:center;
+
+            color:#cbd5e1;
+
+            margin-top:25px;
+
+            font-size:14px;
+        }
+		
+		
+		/* BACK BUTTON */
+
+		.back-btn{
+
+		    width:100%;
+
+		    height:55px;
+
+		    margin-top:18px;
+
+		    border-radius:16px;
+
+		    text-decoration:none;
+
+		    display:flex;
+
+		    align-items:center;
+
+		    justify-content:center;
+
+		    gap:10px;
+
+		    font-size:17px;
+
+		    font-weight:600;
+
+		    color:white;
+
+		    background:
+		    rgba(255,255,255,0.08);
+
+		    border:
+		    1px solid rgba(255,255,255,0.15);
+
+		    backdrop-filter:blur(10px);
+
+		    transition:0.3s ease;
+		}
+
+		.back-btn:hover{
+
+		    transform:
+		    translateY(-3px);
+
+		    color:white;
+
+		    background:
+		    linear-gradient(
+		    to right,
+		    #7c3aed,
+		    #2563eb);
+
+		    box-shadow:
+		    0 10px 25px rgba(37,99,235,0.35);
+		}
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND SHAPES -->
+
+<div class="circle circle1"></div>
+<div class="circle circle2"></div>
+<div class="circle circle3"></div>
+
+
+<div class="container-fluid vh-100">
+
+<div class="row h-100">
+
+    <!-- LEFT SIDE -->
+
+    <div class="col-lg-7 d-none d-lg-flex">
+
+        <div class="left-panel">
+
+            <div>
+
+                <h1 class="portal-title">
+
+                    Employee Portal
+                    Management System
+
+                </h1>
+
+                <p class="portal-subtitle">
+
+                    Smart enterprise platform for
+                    employee management, leave approvals,
+                    announcements and workplace operations.
+
+                </p>
+
+
+                <!-- FEATURES -->
+
+                <div class="features-grid">
+
+                    <div class="feature-card">
+
+                        <i class=
+                        "fa-solid fa-users"></i>
+
+                        <span>
+
+                            Employee Management
+
+                        </span>
+
+                    </div>
+
+                    <div class="feature-card">
+
+                        <i class=
+                        "fa-solid fa-calendar-check"></i>
+
+                        <span>
+
+                            Leave Management
+
+                        </span>
+
+                    </div>
+
+                    <div class="feature-card">
+
+                        <i class=
+                        "fa-solid fa-bullhorn"></i>
+
+                        <span>
+
+                            Announcements
+
+                        </span>
+
+                    </div>
+
+                    <div class="feature-card">
+
+                        <i class=
+                        "fa-solid fa-chart-line"></i>
+
+                        <span>
+
+                            Performance Tracking
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE LOGIN -->
+
+    <div class="col-lg-5 d-flex
+                justify-content-center
+                align-items-center">
+
+        <div class="login-card">
+
+            <div class="admin-icon">
+
+                <i class=
+                "fa-solid fa-user-shield"></i>
+
+            </div>
+
+            <h1>
+
+                Admin Login
+
+            </h1>
+
+            <p class="subtitle">
+
+                Secure access to employee management portal
+
+            </p>
+
+
+            <!-- ERROR -->
+
+            <div th:if="${error}"
+                 class="error-message">
+
+                Wrong Username or Password
+
+            </div>
+
+
+            <!-- LOGIN FORM -->
+
+            <form method="post"
+                  action="/admin/login">
+
+                <!-- USERNAME -->
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+
+                        Username
+
+                    </label>
+
+                    <div class="input-group">
+
+                        <input type="text"
+                               name="username"
+                               class="form-control"
+                               placeholder="Enter username"
+                               required>
+
+                        <i class=
+                        "fa-solid fa-user input-icon"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+
+                        Password
+
+                    </label>
+
+                    <div class="input-group">
+
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               placeholder="Enter password"
+                               required>
+
+                        <i class=
+                        "fa-solid fa-lock input-icon"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <button type="submit"
+                        class="login-btn">
+
+                    <i class=
+                    "fa-solid fa-right-to-bracket"></i>
+
+                    Login
+
+                </button>
+
+				
+				
+				<a href="/"
+				   class="back-btn">
+
+				    <i class=
+				    "fa-solid fa-arrow-left"></i>
+
+				    Back To Portol
+
+				</a>
+				
+				
+            </form>
+
+
+            <div class="footer-text">
+
+                Employee Portal Management System
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

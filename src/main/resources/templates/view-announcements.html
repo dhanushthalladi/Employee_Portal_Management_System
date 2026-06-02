@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<title>Announcements</title>
+
+<link href=
+"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<style>
+
+body{
+    background:#f4f6f9;
+}
+
+.announcement-card{
+
+    border-radius:20px;
+
+    transition:0.3s;
+}
+
+.announcement-card:hover{
+
+    transform:translateY(-5px);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+<h1 class="text-center mb-5">
+
+Company Announcements
+
+</h1>
+
+<div class="row">
+
+<div class="col-md-6 mb-4"
+     th:each="announcement : ${announcements}">
+
+<div class=
+"card shadow p-4 announcement-card">
+
+<h3 class="text-primary">
+
+<span th:text="${announcement.title}">
+</span>
+
+</h3>
+
+<hr>
+
+<p>
+
+<b>Type :</b>
+
+<span class=
+"badge bg-info"
+th:text="${announcement.type}">
+</span>
+
+</p>
+
+<p>
+
+<b>Date :</b>
+
+<span th:text="${announcement.date}">
+</span>
+
+</p>
+
+<p>
+
+<b>Message :</b>
+
+</p>
+
+<p th:text="${announcement.message}">
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

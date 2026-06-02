@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Employee Portal Management System</title>
+
+    <link href=
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+    <link href=
+    "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href=
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        html{
+            zoom:95%;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            overflow-x:hidden;
+
+            background:
+            linear-gradient(
+            135deg,
+            #0f172a,
+            #111827,
+            #1e293b);
+
+            position:relative;
+
+            color:white;
+        }
+
+        /* BACKGROUND CIRCLES */
+
+        .bg-circle{
+
+            position:absolute;
+
+            border-radius:50%;
+
+            filter:blur(90px);
+
+            opacity:0.25;
+
+            animation:float 8s infinite alternate;
+        }
+
+        .circle1{
+
+            width:450px;
+            height:450px;
+
+            background:#3b82f6;
+
+            top:-150px;
+            left:-150px;
+        }
+
+        .circle2{
+
+            width:380px;
+            height:380px;
+
+            background:#ec4899;
+
+            bottom:-120px;
+            right:-120px;
+        }
+
+        .circle3{
+
+            width:300px;
+            height:300px;
+
+            background:#06b6d4;
+
+            top:40%;
+            left:45%;
+        }
+
+        @keyframes float{
+
+            from{
+                transform:translateY(0px);
+            }
+
+            to{
+                transform:translateY(40px);
+            }
+        }
+
+        /* NAVBAR */
+
+        .top-navbar{
+
+            width:100%;
+
+            padding:30px 90px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            position:relative;
+
+            z-index:10;
+        }
+
+        .logo{
+
+            font-size:38px;
+
+            font-weight:800;
+
+            letter-spacing:1px;
+        }
+
+        .logo span{
+
+            color:#38bdf8;
+        }
+
+        .nav-buttons{
+
+            display:flex;
+
+            gap:20px;
+        }
+
+        .nav-btn{
+
+            border:none;
+
+            padding:14px 32px;
+
+            border-radius:14px;
+
+            font-weight:600;
+
+            transition:0.3s;
+
+            font-size:16px;
+        }
+
+        .nav-btn:hover{
+
+            transform:translateY(-3px);
+        }
+
+        .btn-about{
+
+            background:
+            rgba(255,255,255,0.08);
+
+            color:white;
+
+            border:
+            1px solid rgba(255,255,255,0.15);
+        }
+
+        .btn-contact{
+
+            background:white;
+
+            color:#111827;
+        }
+
+        /* HERO SECTION */
+
+        .hero-section{
+
+            min-height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            position:relative;
+
+            z-index:5;
+
+            padding:40px 80px;
+        }
+
+        .hero-container{
+
+            width:100%;
+
+            max-width:1700px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            gap:90px;
+        }
+
+        /* LEFT SIDE */
+
+        .left-side{
+
+            width:55%;
+        }
+
+        .tag{
+
+            display:inline-block;
+
+            padding:14px 26px;
+
+            border-radius:40px;
+
+            background:
+            rgba(255,255,255,0.08);
+
+            border:
+            1px solid rgba(255,255,255,0.12);
+
+            margin-bottom:30px;
+
+            color:#cbd5e1;
+
+            font-size:16px;
+        }
+
+        .main-heading{
+
+            font-size:95px;
+
+            font-weight:800;
+
+            line-height:1.1;
+
+            margin-bottom:30px;
+        }
+
+        .main-heading span{
+
+            background:
+            linear-gradient(
+            to right,
+            #38bdf8,
+            #818cf8,
+            #ec4899);
+
+            -webkit-background-clip:text;
+
+            -webkit-text-fill-color:transparent;
+        }
+
+        .description{
+
+            font-size:24px;
+
+            color:#cbd5e1;
+
+            line-height:1.8;
+
+            margin-bottom:45px;
+
+            width:90%;
+        }
+
+        .hero-buttons{
+
+            display:flex;
+
+            gap:25px;
+        }
+
+        .hero-btn{
+
+            border:none;
+
+            padding:18px 42px;
+
+            border-radius:16px;
+
+            font-size:20px;
+
+            font-weight:600;
+
+            transition:0.3s;
+        }
+
+        .hero-btn:hover{
+
+            transform:translateY(-5px);
+        }
+
+        .btn-start{
+
+            background:
+            linear-gradient(
+            to right,
+            #3b82f6,
+            #06b6d4);
+
+            color:white;
+        }
+
+        .btn-demo{
+
+            background:
+            rgba(255,255,255,0.08);
+
+            color:white;
+
+            border:
+            1px solid rgba(255,255,255,0.15);
+        }
+
+        /* RIGHT SIDE */
+
+        .right-side{
+
+            width:45%;
+
+            display:flex;
+
+            justify-content:center;
+        }
+
+        .portal-card{
+
+            width:600px;
+
+            padding:45px;
+
+            border-radius:35px;
+
+            background:
+            rgba(255,255,255,0.08);
+
+            border:
+            1px solid rgba(255,255,255,0.12);
+
+            backdrop-filter:blur(18px);
+
+            box-shadow:
+            0 20px 45px rgba(0,0,0,0.35);
+        }
+
+        .portal-title{
+
+            text-align:center;
+
+            font-size:45px;
+
+            font-weight:700;
+
+            margin-bottom:40px;
+        }
+
+        .login-option{
+
+            padding:35px;
+
+            border-radius:25px;
+
+            background:
+            rgba(255,255,255,0.05);
+
+            margin-bottom:28px;
+
+            transition:0.3s;
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+        }
+
+        .login-option:hover{
+
+            transform:translateY(-5px);
+
+            background:
+            rgba(255,255,255,0.08);
+        }
+
+        .option-icon{
+
+            width:85px;
+            height:85px;
+
+            border-radius:24px;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            font-size:34px;
+
+            margin-bottom:25px;
+
+            color:white;
+        }
+
+        .admin-icon{
+
+            background:
+            linear-gradient(
+            to right,
+            #f43f5e,
+            #ec4899);
+        }
+
+        .employee-icon{
+
+            background:
+            linear-gradient(
+            to right,
+            #3b82f6,
+            #06b6d4);
+        }
+
+        .option-title{
+
+            font-size:36px;
+
+            font-weight:700;
+
+            margin-bottom:12px;
+        }
+
+        .option-text{
+
+            color:#cbd5e1;
+
+            margin-bottom:25px;
+
+            line-height:1.7;
+
+            font-size:17px;
+        }
+
+        .portal-btn{
+
+            width:100%;
+
+            height:60px;
+
+            border:none;
+
+            border-radius:16px;
+
+            font-size:20px;
+
+            font-weight:600;
+
+            color:white;
+
+            transition:0.3s;
+        }
+
+        .portal-btn:hover{
+
+            transform:scale(1.02);
+        }
+
+        .admin-btn{
+
+            background:
+            linear-gradient(
+            to right,
+            #f43f5e,
+            #ec4899);
+        }
+
+        .employee-btn{
+
+            background:
+            linear-gradient(
+            to right,
+            #3b82f6,
+            #06b6d4);
+        }
+
+        /* FOOTER */
+
+        .footer{
+
+            position:absolute;
+
+            bottom:20px;
+
+            width:100%;
+
+            text-align:center;
+
+            color:#94a3b8;
+
+            font-size:15px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1200px){
+
+            body{
+                overflow:auto;
+            }
+
+            .hero-container{
+
+                flex-direction:column;
+
+                width:95%;
+            }
+
+            .left-side,
+            .right-side{
+
+                width:100%;
+            }
+
+            .main-heading{
+
+                font-size:60px;
+            }
+
+            .portal-card{
+
+                width:100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="bg-circle circle1"></div>
+<div class="bg-circle circle2"></div>
+<div class="bg-circle circle3"></div>
+
+
+<!-- NAVBAR -->
+
+<div class="top-navbar">
+
+    <div class="logo">
+
+        Employee<span>Portal</span>
+
+    </div>
+
+    <div class="nav-buttons">
+
+        <button class="nav-btn btn-about">
+
+            About
+
+        </button>
+
+        <button class="nav-btn btn-contact">
+
+            Contact
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- HERO SECTION -->
+
+<div class="hero-section">
+
+    <div class="hero-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="left-side">
+
+            <div class="tag">
+
+                Smart Employee Management Solution
+
+            </div>
+
+            <div class="main-heading">
+
+                Modern
+                <span>Employee</span>
+                Portal System
+
+            </div>
+
+            <div class="description">
+
+                Simplify employee management,
+                approvals, leave requests,
+                employee profiles and secure access
+                using an advanced enterprise portal.
+
+            </div>
+
+            <div class="hero-buttons">
+
+                <button class="hero-btn btn-start">
+
+                    Get Started
+
+                </button>
+
+                <button class="hero-btn btn-demo">
+
+                    Live Demo
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="right-side">
+
+            <div class="portal-card">
+
+                <div class="portal-title">
+
+                    Portal Access
+
+                </div>
+
+
+                <!-- ADMIN -->
+
+                <div class="login-option">
+
+                    <div class=
+                    "option-icon admin-icon">
+
+                        <i class=
+                        "fa-solid fa-user-tie"></i>
+
+                    </div>
+
+                    <div class="option-title">
+
+                        Admin Portal
+
+                    </div>
+
+                    <div class="option-text">
+
+                        Manage employees, approvals,
+                        departments, leave requests
+                        and portal operations.
+
+                    </div>
+
+                    <a href="/admin/login">
+
+                        <button class=
+                        "portal-btn admin-btn">
+
+                            Admin Login
+
+                        </button>
+
+                    </a>
+
+                </div>
+
+
+                <!-- EMPLOYEE -->
+
+                <div class="login-option">
+
+                    <div class=
+                    "option-icon employee-icon">
+
+                        <i class=
+                        "fa-solid fa-laptop-code"></i>
+
+                    </div>
+
+                    <div class="option-title">
+
+                        Employee Portal
+
+                    </div>
+
+                    <div class="option-text">
+
+                        Access your dashboard,
+                        apply leaves, update profile
+                        and manage your employee account.
+
+                    </div>
+
+                    <a href="/employee/login">
+
+                        <button class=
+                        "portal-btn employee-btn">
+
+                            Employee Login
+
+                        </button>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+    © 2026 Employee Portal Management System
+
+</div>
+
+</body>
+</html>
